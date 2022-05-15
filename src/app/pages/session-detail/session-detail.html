@@ -16,17 +16,27 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="session" class="ion-padding">
-    <h1>{{session.name}}</h1>
-    <span *ngFor="let track of session?.tracks" [class]="'session-track-'+track.toLowerCase()">{{track}}</span>
-    <p>{{session.description}}</p>
+  <div *ngIf="AttendaceDetail" class="ion-padding">
+    <h1>{{AttendaceDetail.course_title}} &ndash; {{ AttendaceDetail.course_code }}</h1> <br>
+    <span *ngFor="let track of AttendaceDetail?.tracks" [class]="'AttendaceDetail-track-'+track.toLowerCase()">{{track}}</span>
     <ion-text color="medium">
-      {{session.timeStart}} &ndash; {{session.timeEnd}}
-      <br /> {{session.location}}
+      {{AttendaceDetail.start_time}} &ndash; {{AttendaceDetail.end_time}}
+      <br /> <br>{{AttendaceDetail.location}}
     </ion-text>
+    <br> <br>
+    <ion-text color="medium">
+      Lecture: {{AttendaceDetail.lecturer_name}}
+      <br /> 
+    </ion-text><br> <br>
+    <ion-text color="medium">
+      Date: {{AttendaceDetail.date}}
+      <br /> 
+    </ion-text>
+    <p style ="font-size: 24px">Status: <ion-text color="danger"> {{AttendaceDetail.status}} </ion-text></p>
   </div>
 
-  <ion-list>
+  <!--
+    <ion-list>
     <ion-item (click)="sessionClick('watch')" button>
       <ion-label color="primary">Watch</ion-label>
     </ion-item>
@@ -44,4 +54,5 @@
       <ion-label color="primary">Leave Feedback</ion-label>
     </ion-item>
   </ion-list>
+  -->
 </ion-content>

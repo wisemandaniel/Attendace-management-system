@@ -5,6 +5,7 @@ import { AlertController, IonList, IonRouterOutlet, LoadingController, ModalCont
 import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'page-schedule',
@@ -25,6 +26,8 @@ export class SchedulePage implements OnInit {
   confDate: string;
   showSearchbar: boolean;
 
+  Attendace = [];
+
   constructor(
     public alertCtrl: AlertController,
     public confData: ConferenceData,
@@ -34,12 +37,18 @@ export class SchedulePage implements OnInit {
     public routerOutlet: IonRouterOutlet,
     public toastCtrl: ToastController,
     public user: UserData,
-    public config: Config
+    public config: Config,
+    private http: HttpClient
   ) { }
-
-  ngOnInit() {
-    this.updateSchedule();
-
+  ngOnInit(): void {
+    this.http.get('http://localhost:3000/attendeace').subscribe(
+      {
+        next: (response: any) => {
+          this.Attendace = response;
+        }
+      }
+    )
+    
     this.ios = this.config.get('mode') === 'ios';
   }
 

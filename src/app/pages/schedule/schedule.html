@@ -47,23 +47,27 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-list #scheduleList [hidden]="shownSessions === 0">
-    <ion-item-group *ngFor="let group of groups" [hidden]="group.hide">
+  
+  <ion-list *ngFor="let group of Attendace">
+    <ion-item-group>
       <ion-item-divider sticky>
         <ion-label>
-          {{group.time}}
+          {{group.course_code}}
+        </ion-label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <ion-label>
+          {{group.date}}
         </ion-label>
       </ion-item-divider>
 
-      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase"
-        [hidden]="session.hide">
-        <ion-item routerLink="/app/tabs/schedule/session/{{session.id}}">
+      <ion-item-sliding>
+        <ion-item routerLink="/app/tabs/schedule/session/{{group.session_id}}">
           <ion-label>
-            <h3>{{session.name}}</h3>
+            <h3>{{ group.course_title }}</h3>
             <p>
-              {{session.timeStart}} &mdash; {{session.timeEnd}}: {{session.location}}
+              {{group.start_time}} &mdash; {{group.end_time}}: &nbsp; &nbsp; {{group.location}}
             </p>
           </ion-label>
+          <ion-text color="danger">{{ group.status }}</ion-text>
         </ion-item>
         <ion-item-options>
           <ion-item-option color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
@@ -79,7 +83,7 @@
   </ion-list>
 
   <ion-list-header [hidden]="shownSessions > 0">
-    No Sessions Found
+    No Attendance Found
   </ion-list-header>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>

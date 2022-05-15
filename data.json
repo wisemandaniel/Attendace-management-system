@@ -1,0 +1,29 @@
+{
+    "students": [],
+    "attendeace": [
+        {
+          "course_title": "Programming 1",
+          "course_code": "CEF 201",
+          "location": "G-block",
+          "session_id": 1,
+          "start_time": "9:00am",
+          "end_time": "11:00am",
+          "lecturer_name": "Dr. Sop Deffo",
+          "level": 200,
+          "status": "Late",
+          "date": "Monday Feb 14 2021"
+        },
+        {
+          "course_title": "Algebra",
+          "course_code": "CEF 203",
+          "location": "CRBL I",
+          "session_id": 2,
+          "start_time": "7:00am",
+          "end_time": "11:00am",
+          "lecturer_name": "Miss Tsako Fanyi",
+          "level": 200,
+          "status": "early",
+          "date": "Monday Feb 14 2021"
+        }
+      ]
+}
