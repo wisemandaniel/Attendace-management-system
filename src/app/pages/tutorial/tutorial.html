@@ -1,0 +1,54 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color='primary' (click)="startApp()" [hidden]="!showSkip">Skip</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <swiper [slidesPerView]="1" (swiper)="setSwiperInstance($event)" (slideChangeTransitionStart)="onSlideChangeStart()">
+    <ng-template swiperSlide>
+      <div class="slide-container">
+      <img src="assets/img/attendance.webp" class="slide-image" />
+      <h2 class="slide-title">
+        Welcome to
+        <b>AAT</b>
+      </h2>
+      <p>
+        The
+        <b>Automatic Attendance tracker app</b> is a mobile application that enables students or employees to automatically take their attendance once they get into the classroom or job sites.
+      </p>
+    </div>
+    </ng-template>
+
+    <ng-template swiperSlide>
+      <div class="slide-container">
+      <img src="assets/img/ica-slidebox-img-2.png" class="slide-image" />
+      <h2 class="slide-title">How to use the app</h2>
+      <p>
+        <b>Create an account.</b> Make sure to fill all the information correctly. Next, login to your account and view all your attendance history. When you are connected to the school network, or your office network, your attendance will be automatically taken.</p>
+        </div>
+    </ng-template>
+
+    <ng-template swiperSlide>
+      <div class="slide-container">
+      <img src="assets/img/ica-slidebox-img-3.png" class="slide-image" />
+      <h2 class="slide-title">Register your courses.</h2>
+      <p>
+        <b>IWhy must I register my courses?</b> You need to register a course before your attendance for that course can be tracked.</p>
+        </div>
+    </ng-template>
+
+    <ng-template swiperSlide>
+      <div class="slide-container">
+      <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />
+      <h2 class="slide-title">Ready to track your attendance?</h2>
+      <ion-button fill="clear" (click)="startApp()">
+        Continue
+        <ion-icon slot="end" name="arrow-forward"></ion-icon>
+      </ion-button>
+      </div>
+    </ng-template>
+  </swiper>
+</ion-content>

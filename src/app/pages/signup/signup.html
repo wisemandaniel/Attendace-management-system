@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Signup</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="signup-logo">
+    <img src="assets/img/attendance.webp" alt="Ionic Logo">
+  </div>
+
+  <form #signupForm="ngForm" novalidate>
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label position="stacked" color="primary">Full names</ion-label>
+        <ion-input [(ngModel)]="signup.name" name="name" type="text" #name="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <ion-text color="danger">
+        <p [hidden]="name.valid || submitted === false" class="ion-padding-start">
+          Name is required
+        </p>
+      </ion-text>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Matricule</ion-label>
+        <ion-input [(ngModel)]="signup.matricule" name="matricule" type="matricule" #matricule="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <ion-text color="danger">
+        <p [hidden]="matricule.valid || submitted === false" class="ion-padding-start">
+          Matricule is required
+        </p>
+      </ion-text>
+
+      <ion-item>
+        <ion-select placeholder="Select Level" [(ngModel)]="signup.level" name="level" type="level" #level="ngModel" required>
+          <ion-select-option value="200">200</ion-select-option>
+          <ion-select-option value="300">300</ion-select-option>
+          <ion-select-option value="400">400</ion-select-option>
+          <ion-select-option value="500">500</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-text color="danger">
+        <p [hidden]="level.valid || submitted === false" class="ion-padding-start">
+          Level is required
+        </p>
+      </ion-text>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Password</ion-label>
+        <ion-input [(ngModel)]="signup.password" name="password" type="password" #password="ngModel" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-text color="danger">
+        <p [hidden]="password.valid || submitted === false" class="ion-padding-start">
+          Password is required
+        </p>
+      </ion-text>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button (click)="onSignup(signupForm)" type="submit" expand="block">Create</ion-button>
+    </div>
+  </form>
+
+</ion-content>
