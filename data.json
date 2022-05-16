@@ -25,5 +25,28 @@
           "status": "early",
           "date": "Monday Feb 14 2021"
         }
+      ],
+      "courses": [
+        {
+          "course_title": "Programming 1",
+          "course_code": "CEF 201",
+          "lecturer_name": "Dr. Sop Deffo",
+          "level": 200,
+          "course_id": 1
+        },
+        {
+          "course_title": "Programming 2",
+          "course_code": "CEF 204",
+          "lecturer_name": "Dr. Nde Nguti",
+          "level": 200,
+          "course_id": 2
+        },
+        {
+          "course_title": "Algebra",
+          "course_code": "CEF 203",
+          "lecturer_name": "Miss Ajeba",
+          "level": 200,
+          "course_id": 3
+        }
       ]
 }

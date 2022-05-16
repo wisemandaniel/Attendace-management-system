@@ -41,15 +41,27 @@ export class SchedulePage implements OnInit {
     private http: HttpClient
   ) { }
   ngOnInit(): void {
-    this.http.get('http://localhost:3000/attendeace').subscribe(
+    this.getAttendance();
+    
+    this.ios = this.config.get('mode') === 'ios';
+  }
+
+  async getAttendance() {
+    
+    await this.http.get('http://localhost:3000/attendeace').subscribe(
       {
         next: (response: any) => {
           this.Attendace = response;
         }
       }
-    )
-    
-    this.ios = this.config.get('mode') === 'ios';
+    );
+
+    console.log(this.Attendace);
+  }
+
+  getAnnoucements() {
+    this.Attendace = [];
+    console.log(this.Attendace);
   }
 
   updateSchedule() {
