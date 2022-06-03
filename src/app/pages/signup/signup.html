@@ -16,13 +16,13 @@
   <form #signupForm="ngForm" novalidate>
     <ion-list lines="none">
       <ion-item>
-        <ion-label position="stacked" color="primary">Full names</ion-label>
-        <ion-input [(ngModel)]="signup.name" name="name" type="text" #name="ngModel" required>
+        <ion-label position="stacked" color="primary">Email</ion-label>
+        <ion-input [(ngModel)]="signup.email" name="email" type="text" #email="ngModel" required>
         </ion-input>
       </ion-item>
       <ion-text color="danger">
-        <p [hidden]="name.valid || submitted === false" class="ion-padding-start">
-          Name is required
+        <p [hidden]="email.valid || submitted === false" class="ion-padding-start">
+          Email is required
         </p>
       </ion-text>
 
@@ -34,6 +34,17 @@
       <ion-text color="danger">
         <p [hidden]="matricule.valid || submitted === false" class="ion-padding-start">
           Matricule is required
+        </p>
+      </ion-text>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Full names</ion-label>
+        <ion-input [(ngModel)]="signup.username" name="name" type="text" #username="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <ion-text color="danger">
+        <p [hidden]="username.valid || submitted === false" class="ion-padding-start">
+          Name is required
         </p>
       </ion-text>
 

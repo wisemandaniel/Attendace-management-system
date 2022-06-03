@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { UserData } from '../../providers/user-data';
 
 import { UserOptions } from '../../interfaces/user-options';
+import { AlertController } from '@ionic/angular';
+import { UserService } from '../../services/user/user.service';
 
 
 
@@ -14,20 +16,39 @@ import { UserOptions } from '../../interfaces/user-options';
   styleUrls: ['./login.scss'],
 })
 export class LoginPage {
-  login: UserOptions = { username: '', password: '' };
+  login: UserOptions = { matricule: '', password: '' };
   submitted = false;
 
   constructor(
+    private userService: UserService,
     public userData: UserData,
-    public router: Router
+    public router: Router,
+    private alertCtrl: AlertController
   ) { }
+
+
+  async showAlert(message: string) {
+    const alert = await this.alertCtrl.create({  
+      message: message,  
+      buttons: ['OK']  
+    });  
+    await alert.present();  
+  }
 
   onLogin(form: NgForm) {
     this.submitted = true;
-
     if (form.valid) {
-      this.userData.login(this.login.username);
-      this.router.navigateByUrl('/app/tabs/schedule');
+      this.userService.login(form.value).subscribe(
+        {
+          next: (response) => {
+            console.log(response);
+            this.router.navigateByUrl('/app/tabs/schedule');
+          },
+          error: (error) => {
+             this.showAlert(error.message);
+          }
+        }
+      )
     }
   }
 

@@ -26,6 +26,8 @@ export class SchedulePage implements OnInit {
   confDate: string;
   showSearchbar: boolean;
 
+  macAddress = 'nnnnnnnnnnnnnn';
+
   Attendace = [];
 
   constructor(
@@ -157,5 +159,25 @@ export class SchedulePage implements OnInit {
     await loading.present();
     await loading.onWillDismiss();
     fab.close();
+  }
+
+  async track(fab: HTMLIonFabElement) {
+    if(!this.macAddress) {
+      const loading = await this.loadingCtrl.create({
+        message: 'Getting mac address',
+        duration: (Math.random() * 1000) + 50000
+      });
+      await loading.present();
+      await loading.onWillDismiss();
+      fab.close();
+    } else {
+      const loading = await this.loadingCtrl.create({
+        message: 'Marking attendance',
+        duration: (Math.random() * 1000) + 50000
+      });
+      await loading.present();
+      await loading.onWillDismiss();
+      fab.close();
+    }
   }
 }

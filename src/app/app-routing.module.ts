@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TrackComponent } from './pages/track/track.component';
 import { CheckTutorial } from './providers/check-tutorial.service';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/tutorial',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
     path: 'tutorial',
     loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule),
     canLoad: [CheckTutorial]
+  },
+  {
+    path: 'track',
+    loadChildren: () => import('./pages/track/track.module').then(m => m.TrackModule),
   }
 ];
 

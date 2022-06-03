@@ -12,6 +12,7 @@ import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddCourseComponent } from './pages/add-course/add-course.component';
+import { TrackComponent } from './pages/track/track.component';
 
 @NgModule({
   imports: [

@@ -13,6 +13,7 @@ import { AddCourseComponent } from '../add-course/add-course.component';
 export class SpeakerListPage {
   speakers: any[] = [];
   courses = [];
+  isCoursesEmpty = false;
 
   constructor(
     public confData: ConferenceData, 
@@ -32,7 +33,9 @@ export class SpeakerListPage {
       {
         next: (response: any) => {
            this.courses = response;
-           console.log(this.courses);
+           if(this.courses.length === 0) {
+              this.isCoursesEmpty = true;
+           }
         }
       }
     )

@@ -1,10 +1,12 @@
 export interface UserOptions {
-  username: string;
+  matricule: string;
   password: string;
 }
 
 export interface UserOptions2 {
-  name: string;
+  username: string;
+  email: string;
+  role: string;
   matricule: string;
   level: number;
   macAddress: string;

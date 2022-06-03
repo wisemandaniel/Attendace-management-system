@@ -14,7 +14,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-text>
+  <ion-text *ngIf = "isCoursesEmpty">
     <h2 style = "margin-top: 30px; font-size: 20px; color: red; text-align: center; margin-left 1px; margin-right: 1px">
       You haven't registered any course yet. Click on the add button to register your courses to start tracking attendance
     </h2>

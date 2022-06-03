@@ -6,7 +6,8 @@ import { UserData } from '../../providers/user-data';
 
 import { Storage } from '@ionic/storage';
 import { UserOptions2 } from '../../interfaces/user-options';
-
+import { UserService } from '../../services/user/user.service';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -18,8 +19,10 @@ export class SignupPage {
 
   macAddress = 'somerandomestring'
   signup: UserOptions2 = { 
-    name: '', 
+    username: '', 
+    email: '',
     matricule: '',
+    role: 'ROLE_STUDENT',
     level: 200,
     macAddress: this.macAddress,
     password: '' 
@@ -27,9 +30,11 @@ export class SignupPage {
   submitted = false;
 
   constructor(
+    private userService: UserService,
     public router: Router,
     public userData: UserData,
-    public storage: Storage
+    public storage: Storage,
+    private alertCtrl: AlertController
   ) {}
 
   // onSignup(form: NgForm) {
@@ -40,17 +45,28 @@ export class SignupPage {
   //   }
   // }
 
+  async showAlert(message: string) {
+    const alert = await this.alertCtrl.create({  
+      message: message,  
+      buttons: ['OK']  
+    });  
+    await alert.present();  
+  }
+
    onSignup(form: NgForm) {
     this.submitted = true;
     if (form.valid) {
-       this.userData.register(this.signup).subscribe(
+       this.userService.register(this.signup).subscribe(
         {
-          next: (response) => {
-            console.log(response);
+          next: (response: any) => {
+            this.showAlert(response.message);
+          },
+          error: (error) => {
+            this.showAlert(error.message);
           }
         }
       )
-      this.router.navigateByUrl('/app/tabs/schedule');
+      // this.router.navigateByUrl('/app/tabs/schedule');
     }
   }
 }
