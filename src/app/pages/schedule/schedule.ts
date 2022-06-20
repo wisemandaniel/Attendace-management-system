@@ -6,6 +6,10 @@ import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
 import { HttpClient } from '@angular/common/http';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { Uid } from '@ionic-native/uid/ngx';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { MacAddress } from 'mac-address'
 
 @Component({
   selector: 'page-schedule',
@@ -26,7 +30,7 @@ export class SchedulePage implements OnInit {
   confDate: string;
   showSearchbar: boolean;
 
-  macAddress = 'nnnnnnnnnnnnnn';
+  macAddress = '';
 
   Attendace = [];
 
@@ -40,11 +44,72 @@ export class SchedulePage implements OnInit {
     public toastCtrl: ToastController,
     public user: UserData,
     public config: Config,
-    private http: HttpClient
+    private http: HttpClient,
+    private uniqueDeviceID: UniqueDeviceID,
+    private uid: Uid,
+    private androidPermissions: AndroidPermissions
   ) { }
+
+  getUniqueDeviceID() {
+    this.uniqueDeviceID.get()
+      .then((uuid: any) => {
+        alert(uuid)
+        console.log(uuid);
+        this.uniqueDeviceID = uuid;
+      })
+      .catch((error: any) => {
+        alert(error);
+      });
+  }
+
+  getPermission(){
+    this.androidPermissions.checkPermission(
+      this.androidPermissions.PERMISSION.READ_PHONE_STATE
+    ).then(res => {
+      if(res.hasPermission){
+        alert(this.getID_UID('MAC'));
+      }else{
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.READ_PHONE_STATE).then(res => {
+          alert("Persmission Granted Please Restart App!");
+        }).catch(error => {
+          alert("Error! "+error);
+        });
+      }
+    }).catch(error => {
+      alert("Error! "+error);
+    });
+  }
+
+  getID_UID(type){
+    if(type == "IMEI"){
+      return this.uid.IMEI;
+    }else if(type == "ICCID"){
+      return this.uid.ICCID;
+    }else if(type == "IMSI"){
+      return this.uid.IMSI;
+    }else if(type == "MAC"){
+      return this.uid.MAC;
+    }else if(type == "UUID"){
+      return this.uid.UUID;
+    }
+  }
+  
   ngOnInit(): void {
-    this.getAttendance();
     
+    MacAddress.getMacAddress().then(res=>{
+      this.macAddress=res.value
+      alert(res.value);
+    }).catch((err)=>{
+      alert(err)
+    });
+
+    alert('welcome User');
+    const uuid = this.getID_UID('UUID');
+    alert(uuid);
+    // Check Permission on App Start
+    this.getPermission();
+    this.getUniqueDeviceID();
+    this.getAttendance();
     this.ios = this.config.get('mode') === 'ios';
   }
 
@@ -165,15 +230,14 @@ export class SchedulePage implements OnInit {
     if(!this.macAddress) {
       const loading = await this.loadingCtrl.create({
         message: 'Getting mac address',
-        duration: (Math.random() * 1000) + 50000
+        duration: (Math.random() * 1000) + 20000
       });
       await loading.present();
       await loading.onWillDismiss();
-      fab.close();
     } else {
       const loading = await this.loadingCtrl.create({
         message: 'Marking attendance',
-        duration: (Math.random() * 1000) + 50000
+        duration: (Math.random() * 1000) + 20000
       });
       await loading.present();
       await loading.onWillDismiss();

@@ -73,6 +73,12 @@
           Password is required
         </p>
       </ion-text>
+
+      <ion-item>
+        <ion-label disabled position="stacked" color="primary">Mac address</ion-label>
+        <ion-input [(ngModel)]="signup.macAddress" name="macAddress" type="text" #macAddress="ngModel" required>
+        </ion-input>
+      </ion-item>
     </ion-list>
 
     <div class="ion-padding">

@@ -12,7 +12,9 @@ import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddCourseComponent } from './pages/add-course/add-course.component';
-import { TrackComponent } from './pages/track/track.component';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { Uid } from '@ionic-native/uid/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 @NgModule({
   imports: [
@@ -27,10 +29,11 @@ import { TrackComponent } from './pages/track/track.component';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
+  exports: [],
   declarations: [AppComponent, AddCourseComponent],
-  providers: [InAppBrowser],
+  providers: [InAppBrowser, Uid, AndroidPermissions, UniqueDeviceID],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
