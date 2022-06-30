@@ -33,6 +33,8 @@ export class SchedulePage implements OnInit {
 
   macAddress = '';
 
+  color = 'green';
+
   Attendace = [];
 
   constructor(
@@ -122,7 +124,23 @@ export class SchedulePage implements OnInit {
       {
         next: (response: any) => {
           console.log('AttendHistory', response);
-          this.Attendace = response;
+          this.Attendace = response;  
+          
+
+          // response.forEach((item: any) =>{
+          //   var x = item.remark
+          //   var y = item.session;
+          //   console.log(x);
+            
+          //   if(x == 'Late') {
+          //     this.color = 'red';
+          //   } else {
+          //     this.color = 'green';
+          //   }
+
+          //   console.log(this.color);
+            
+          // });
         }
       }
     );

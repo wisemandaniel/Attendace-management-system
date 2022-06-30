@@ -38,7 +38,7 @@ export class SpeakerListPage {
     await MacAddress.getMacAddress()
     .then((res) => {
       // this.macAddress = res.value;
-      this.macAddress = "4E:2F:3E:4F:5E:6F:"
+      this.macAddress = "mac-address-here"
       alert(this.macAddress);
     })
     .catch((err) => {
@@ -113,8 +113,9 @@ export class SpeakerListPage {
     if(found === true){
       this.attend.recordAttndance(obj).subscribe(
         {
-          next: (response) => {
+          next: (response: any) => {
             console.log(response);
+            alert(response.message);
           },
           error: (error) => {
             alert(error);

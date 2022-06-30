@@ -14,6 +14,14 @@ ion-fab-button {
   --background-activated: var(--ion-color-step-250, #d9d9d9);
 }
 
+.is-green {
+  color: green;
+}
+
+.is-red {
+  color: red;
+}
+
 $categories: (
   ionic: var(--ion-color-primary),
   angular: #ac282b,

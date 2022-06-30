@@ -66,8 +66,17 @@
             <p>
               {{group.session.startTime}} &mdash; {{group.session.endTime}}: &nbsp; &nbsp; {{group.session.comment}}
             </p>
+           
+
+            <p>
+              <b style="font-size: 17px">Attended time: &nbsp;</b> <span style="font-size: 17px">{{ group.createdAt | date: 'mediumTime' }} </span> 
+            </p>
+
           </ion-label>
-          <ion-text color="danger">{{ group.remark }}</ion-text>
+          <ion-text [ngClass]="{
+            'is-green': group.remark === 'Early',
+            'is-red': group.remark === 'Late'
+          }">{{ group.remark }}</ion-text>
         </ion-item>
         <ion-item-options>
           <ion-item-option color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
