@@ -52,22 +52,22 @@
     <ion-item-group>
       <ion-item-divider sticky>
         <ion-label>
-          {{group.course_code}}
+          {{group.session.name}}
         </ion-label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         <ion-label>
-          {{group.date}}
+          {{group.session.day}}
         </ion-label>
       </ion-item-divider>
 
       <ion-item-sliding>
         <ion-item routerLink="/app/tabs/schedule/session/{{group.session_id}}">
           <ion-label>
-            <h3>{{ group.course_title }}</h3>
+            <h3>{{ group.session.name }}</h3>
             <p>
-              {{group.start_time}} &mdash; {{group.end_time}}: &nbsp; &nbsp; {{group.location}}
+              {{group.session.startTime}} &mdash; {{group.session.endTime}}: &nbsp; &nbsp; {{group.session.comment}}
             </p>
           </ion-label>
-          <ion-text color="danger">{{ group.status }}</ion-text>
+          <ion-text color="danger">{{ group.remark }}</ion-text>
         </ion-item>
         <ion-item-options>
           <ion-item-option color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
@@ -88,7 +88,7 @@
   </ion-list-header>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
-    <ion-fab-button (click)="track(fab)">
+    <ion-fab-button (click)="trackAttendance()">
       Track
     </ion-fab-button>
   </ion-fab>

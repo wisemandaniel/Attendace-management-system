@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -15,6 +15,7 @@ import { AddCourseComponent } from './pages/add-course/add-course.component';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { Uid } from '@ionic-native/uid/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   imports: [
@@ -33,7 +34,16 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
   ],
   exports: [],
   declarations: [AppComponent, AddCourseComponent],
-  providers: [InAppBrowser, Uid, AndroidPermissions, UniqueDeviceID],
+  providers: [
+    InAppBrowser, 
+    Uid, 
+    AndroidPermissions, 
+    UniqueDeviceID,
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: AuthInterceptor, 
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

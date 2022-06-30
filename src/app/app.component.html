@@ -57,7 +57,7 @@
             Account
           </ion-list-header>
 
-          <ion-menu-toggle autoHide="false">
+          <ion-menu-toggle *ngIf = "loggedIn" autoHide="false">
             <ion-item routerLink="/login" routerLinkActive="active" routerDirection="root" detail="false">
               <ion-icon slot="start" name="log-in"></ion-icon>
               <ion-label>
@@ -75,7 +75,7 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle autoHide="false">
+          <ion-menu-toggle *ngIf = "loggedIn" autoHide="false">
             <ion-item routerLink="/signup" routerLinkActive="active" routerDirection="root" detail="false">
               <ion-icon slot="start" name="person-add"></ion-icon>
               <ion-label>

@@ -9,6 +9,6 @@ export interface UserOptions2 {
   role: string;
   matricule: string;
   level: number;
-  macAddress: string;
+  macAddress1: string;
   password: string;
 }

@@ -7,7 +7,8 @@ import { UserData } from '../../providers/user-data';
 import { UserOptions } from '../../interfaces/user-options';
 import { AlertController } from '@ionic/angular';
 import { UserService } from '../../services/user/user.service';
-
+// import { Storage } from '@capacitor/storage';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class LoginPage {
     private userService: UserService,
     public userData: UserData,
     public router: Router,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private store: Storage
   ) { }
 
 
@@ -40,7 +42,14 @@ export class LoginPage {
     if (form.valid) {
       this.userService.login(form.value).subscribe(
         {
-          next: (response) => {
+          next: (response: any) => {
+            const user = response
+            console.log();
+            
+            localStorage.setItem('token', response.accessToken);
+            localStorage.setItem('user', JSON.stringify(response.user));
+            // Storage.set({key: 'token', value: response.accessToken});
+            // Storage.set({key: 'user', value: JSON.stringify(response)});
             console.log(response);
             this.router.navigateByUrl('/app/tabs/schedule');
           },

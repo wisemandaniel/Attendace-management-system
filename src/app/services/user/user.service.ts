@@ -11,14 +11,19 @@ import { UserData } from '../../providers/user-data';
 export class UserService {
 
   url = environment.baseUrl2;
+  // url = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
-  register(UserData: UserOptions2): Observable<UserOptions2> {
-     return this.http.post<UserOptions2>(this.url + 'auth/register-student', UserData)
+  register(UserData: any): Observable<any> {
+     return this.http.post<any>(this.url + 'public/auth/register-student', UserData)
   }
 
-  login(userData: UserOptions): Observable<UserOptions> {
-     return this.http.post<UserOptions>(this.url + 'auth/login', userData);
+  login(userData: any): Observable<UserOptions> {
+     return this.http.post<UserOptions>(this.url + 'public/auth/login', userData);
+  }
+
+  getAllStudents() {
+     return this.http.get(this.url + 'protected/students/?pageNumber=0&pageSize=5');
   }
 }

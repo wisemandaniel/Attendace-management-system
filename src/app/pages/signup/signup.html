@@ -13,11 +13,22 @@
     <img src="assets/img/attendance.webp" alt="Ionic Logo">
   </div>
 
-  <form #signupForm="ngForm" novalidate>
+  <form #signup="ngForm" novalidate>
     <ion-list lines="none">
       <ion-item>
+        <ion-label position="stacked" color="primary">Full names</ion-label>
+        <ion-input [(ngModel)]="signupForm.username" name="username" type="text" #name="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <ion-text color="danger">
+        <p [hidden]="name.valid || submitted === false" class="ion-padding-start">
+          Name is required
+        </p>
+      </ion-text>
+
+      <ion-item>
         <ion-label position="stacked" color="primary">Email</ion-label>
-        <ion-input [(ngModel)]="signup.email" name="email" type="text" #email="ngModel" required>
+        <ion-input [(ngModel)]="signupForm.email" name="email" type="text" #email="ngModel" required>
         </ion-input>
       </ion-item>
       <ion-text color="danger">
@@ -28,7 +39,7 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Matricule</ion-label>
-        <ion-input [(ngModel)]="signup.matricule" name="matricule" type="matricule" #matricule="ngModel" required>
+        <ion-input [(ngModel)]="signupForm.matricule" name="matricule" type="matricule" #matricule="ngModel" required>
         </ion-input>
       </ion-item>
       <ion-text color="danger">
@@ -38,18 +49,7 @@
       </ion-text>
 
       <ion-item>
-        <ion-label position="stacked" color="primary">Full names</ion-label>
-        <ion-input [(ngModel)]="signup.username" name="name" type="text" #username="ngModel" required>
-        </ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="username.valid || submitted === false" class="ion-padding-start">
-          Name is required
-        </p>
-      </ion-text>
-
-      <ion-item>
-        <ion-select placeholder="Select Level" [(ngModel)]="signup.level" name="level" type="level" #level="ngModel" required>
+        <ion-select placeholder="Select Level" [(ngModel)]="signupForm.level" name="level" type="level" #level="ngModel" required>
           <ion-select-option value="200">200</ion-select-option>
           <ion-select-option value="300">300</ion-select-option>
           <ion-select-option value="400">400</ion-select-option>
@@ -64,7 +64,7 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Password</ion-label>
-        <ion-input [(ngModel)]="signup.password" name="password" type="password" #password="ngModel" required>
+        <ion-input [(ngModel)]="signupForm.password" name="password" type="password" #password="ngModel" required>
         </ion-input>
       </ion-item>
 
@@ -74,15 +74,15 @@
         </p>
       </ion-text>
 
-      <ion-item>
-        <ion-label disabled position="stacked" color="primary">Mac address</ion-label>
-        <ion-input [(ngModel)]="signup.macAddress" name="macAddress" type="text" #macAddress="ngModel" required>
-        </ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="primary">Mac address</ion-label>
+      <ion-input disabled [(ngModel)]="signupForm.macAddress1" name="macAddress" type="text">
+      </ion-input>
+    </ion-item>
     </ion-list>
 
     <div class="ion-padding">
-      <ion-button (click)="onSignup(signupForm)" type="submit" expand="block">Create</ion-button>
+      <ion-button style="height: 50px" (click)="onSignup(signupForm)" type="submit" expand="block">Sign up <ion-spinner *ngIf = "isLoading" style="margin-left: 25px"></ion-spinner></ion-button>
     </div>
   </form>
 

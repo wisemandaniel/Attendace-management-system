@@ -56,6 +56,7 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.checkLogin();
     this.checkLoginStatus();
     this.listenForLoginEvents();
 
@@ -87,6 +88,16 @@ export class AppComponent implements OnInit {
         SplashScreen.hide();
       }
     });
+  }
+
+  checkLogin() {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if(token) {
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false
+    }
   }
 
   checkLoginStatus() {
