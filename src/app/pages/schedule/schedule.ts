@@ -78,31 +78,14 @@ export class SchedulePage implements OnInit {
     
     MacAddress.getMacAddress().then(res=>{
       this.macAddress=res.value
-      // alert(res.value);
+      alert(res.value);
     }).catch((err)=>{
-      // alert(err)
+      alert(err)
     });
     // Check Permission on App Start
     this.getUniqueDeviceID();
     this.getAttendance();
     this.ios = this.config.get('mode') === 'ios';
-  }
-
-  trackAttendance() {
-
-    const attendanceData = {
-       remark: 'Late',
-       sessionId: '11111111111111mmm'
-    }
-
-    this.attendanceService.recordAttndance(attendanceData).subscribe(
-      // remark = attendanceData.remark = '';
-      {
-        next: (response) => {
-           this.alertCtrl.create(response);
-        }
-      }
-    )
   }
 
   async getAttendance() {
@@ -114,8 +97,6 @@ export class SchedulePage implements OnInit {
         }
       }
     );
-
-    // console.log(this.Attendace);
   }
 
 
@@ -125,22 +106,6 @@ export class SchedulePage implements OnInit {
         next: (response: any) => {
           console.log('AttendHistory', response);
           this.Attendace = response;  
-          
-
-          // response.forEach((item: any) =>{
-          //   var x = item.remark
-          //   var y = item.session;
-          //   console.log(x);
-            
-          //   if(x == 'Late') {
-          //     this.color = 'red';
-          //   } else {
-          //     this.color = 'green';
-          //   }
-
-          //   console.log(this.color);
-            
-          // });
         }
       }
     );

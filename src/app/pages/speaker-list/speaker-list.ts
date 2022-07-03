@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
@@ -7,18 +7,22 @@ import { AddCourseComponent } from '../add-course/add-course.component';
 import { AttendanceService } from '../../services/attendance/attendance.service';
 import { UserService } from '../../services/user/user.service';
 import { MacAddress } from "mac-address";
+import { TrackAttendanceComponent } from '../../components/track-attendance/track-attendance.component';
 
 @Component({
   selector: 'page-speaker-list',
   templateUrl: 'speaker-list.html',
   styleUrls: ['./speaker-list.scss'],
 })
-export class SpeakerListPage {
+export class SpeakerListPage implements OnInit{
   macAddress = '';
+  tracked = false;
   students: any[] = [];
   courses = [];
   isCoursesEmpty = false;
   Sessions: any[] = [];
+
+  sessionCode: string;
 
   constructor(
     public confData: ConferenceData, 
@@ -27,6 +31,19 @@ export class SpeakerListPage {
     public dialog: MatDialog,
     private userService: UserService,
     private attend: AttendanceService) {}
+
+    ngOnInit(): void {
+      this.getMacAddress();
+      this.getStudents();
+      this.getSessions();
+    }
+
+    openDialog(sessionId: string, remark: string): void {
+      const dialogRef = this.dialog.open(TrackAttendanceComponent, {
+        width: '250px',
+        data: {sessionId: sessionId, remark: remark, sessionCode: this.sessionCode},
+      });
+    }
 
   ionViewDidEnter() {
     this.getMacAddress();
@@ -65,6 +82,7 @@ export class SpeakerListPage {
       {
         next: (response: any) => {
           this.Sessions = response;
+          console.log(response);
         },
         error: (error) => {
           alert(error);
@@ -102,28 +120,12 @@ export class SpeakerListPage {
         }
       }
     }
+
+    this.openDialog(sessionId, status);
     
     const obj = {
       remark: status,
       sessionId: sessionId
-    }
-  
-  const found = this.students.some(student => student.macAddress === this.macAddress);
-
-    if(found === true){
-      this.attend.recordAttndance(obj).subscribe(
-        {
-          next: (response: any) => {
-            console.log(response);
-            alert(response.message);
-          },
-          error: (error) => {
-            alert(error);
-          }
-        }
-      );
-    } else {
-      alert('User not found with mac address ' + this.macAddress)
     }
   }
 

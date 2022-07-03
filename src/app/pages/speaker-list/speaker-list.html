@@ -10,18 +10,15 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <ion-card *ngFor = "let session of Sessions">
-    <ion-card-header>
+  <ion-card style = "margin-bottom: 20px" *ngFor = "let session of Sessions; let i=index">
+    <ion-card-content>
       <ion-card-title>{{ session.name }}</ion-card-title>
       <ion-card-subtitle>
         <h2>{{ session.day }}</h2>
       </ion-card-subtitle>
-    </ion-card-header>
-  
-    <ion-card-content>
       <div>
         <h2>{{ session.startTime }} - {{ session.endTime }}</h2>
-        <ion-button (click) = "recordAttendance(session.id)" color="primary" style="float: left">Track Attendance</ion-button>
+        <ion-button [disabled] = "found2===i" (click) = "recordAttendance(session.id); found2 = i" color="primary" style="padding: 2px; width: 100%;">Track Attendance</ion-button>
       </div>
     </ion-card-content>
   </ion-card>

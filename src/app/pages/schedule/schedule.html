@@ -52,42 +52,31 @@
     <ion-item-group>
       <ion-item-divider sticky>
         <ion-label>
-          {{group.session.name}}
-        </ion-label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <ion-label>
-          {{group.session.day}}
+          Date: &nbsp;<b>{{group.session.day | date: 'fullDate'}}</b>
         </ion-label>
       </ion-item-divider>
 
-      <ion-item-sliding>
-        <ion-item routerLink="/app/tabs/schedule/session/{{group.session_id}}">
+        <ion-item style = "margin-bottom: 10px">
           <ion-label>
-            <h3>{{ group.session.name }}</h3>
+            <h3>Course title &nbsp;<b>{{ group.session.name }}</b></h3>
             <p>
-              {{group.session.startTime}} &mdash; {{group.session.endTime}}: &nbsp; &nbsp; {{group.session.comment}}
+              Start: &nbsp;{{group.session.startTime}} 
             </p>
-           
-
+            <p>
+              End: &nbsp;{{group.session.endTime}} 
+            </p>
+            <p>Location: &nbsp;{{group.session.comment}}</p>
+          
             <p>
               <b style="font-size: 17px">Attended time: &nbsp;</b> <span style="font-size: 17px">{{ group.createdAt | date: 'mediumTime' }} </span> 
             </p>
 
           </ion-label>
-          <ion-text [ngClass]="{
+          <ion-text style = "font-size: 18px; font-weight: bolder" [ngClass]="{
             'is-green': group.remark === 'Early',
             'is-red': group.remark === 'Late'
           }">{{ group.remark }}</ion-text>
         </ion-item>
-        <ion-item-options>
-          <ion-item-option color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            Favorite
-          </ion-item-option>
-          <ion-item-option color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')"
-            *ngIf="segment === 'favorites'">
-            Remove
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
     </ion-item-group>
   </ion-list>
 
@@ -95,10 +84,4 @@
     <span style="color: red;">No Attendance Found </span>
     <span>Register your courses and attend lectures to track your attendance</span>
   </ion-list-header>
-
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
-    <ion-fab-button (click)="trackAttendance()">
-      Track
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>

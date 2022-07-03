@@ -16,6 +16,11 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { Uid } from '@ionic-native/uid/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { TrackAttendanceComponent } from './components/track-attendance/track-attendance.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -30,10 +35,16 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
     BrowserAnimationsModule,
   ],
-  exports: [],
-  declarations: [AppComponent, AddCourseComponent],
+  exports: [
+    MatDialogModule
+  ],
+  declarations: [AppComponent, AddCourseComponent, TrackAttendanceComponent],
   providers: [
     InAppBrowser, 
     Uid, 

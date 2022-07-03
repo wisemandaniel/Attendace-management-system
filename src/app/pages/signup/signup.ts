@@ -199,7 +199,7 @@ export class SignupPage implements OnInit{
 
    onSignup(form: NgForm) {
     this.isLoading = true;
-    this.macAddress = 'mac-address-here';
+    // this.macAddress = 'mac-address-here';
     const obj = {
       username: this.signupForm.username,
       email: this.signupForm.email,

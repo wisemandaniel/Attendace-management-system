@@ -1,6 +1,6 @@
 {
 	"appId": "ionic.conference.app",
-	"appName": "ionic-conference-app",
+	"appName": "Attendance Tracker",
 	"webDir": "www",
 	"bundledWebRuntime": false,
 	"plugins": {

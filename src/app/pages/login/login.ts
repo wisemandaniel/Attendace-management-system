@@ -19,6 +19,7 @@ import { Storage } from '@ionic/storage';
 export class LoginPage {
   login: UserOptions = { matricule: '', password: '' };
   submitted = false;
+  isLoading = false;
 
   constructor(
     private userService: UserService,
@@ -38,23 +39,29 @@ export class LoginPage {
   }
 
   onLogin(form: NgForm) {
+    this.isLoading = true;
     this.submitted = true;
     if (form.valid) {
       this.userService.login(form.value).subscribe(
         {
           next: (response: any) => {
             const user = response
-            console.log();
-            
+            console.log(user);     
+            this.isLoading = false;
             localStorage.setItem('token', response.accessToken);
-            localStorage.setItem('user', JSON.stringify(response.user));
+            localStorage.setItem('user', JSON.stringify(response));
             // Storage.set({key: 'token', value: response.accessToken});
             // Storage.set({key: 'user', value: JSON.stringify(response)});
             console.log(response);
             this.router.navigateByUrl('/app/tabs/schedule');
           },
-          error: (error) => {
-             this.showAlert(error.message);
+          error: (error) => {     
+            this.isLoading = false;
+             if(error.error.message == null) {
+              this.showAlert('Error reaching server, Please reconnect to the server and try again');
+             } else{
+              this.showAlert(error.error.message);
+             }
           }
         }
       )
