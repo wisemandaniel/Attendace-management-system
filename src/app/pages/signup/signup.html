@@ -39,7 +39,7 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Matricule</ion-label>
-        <ion-input [(ngModel)]="signupForm.matricule" name="matricule" type="matricule" #matricule="ngModel" required>
+        <ion-input [(ngModel)]="signupForm.matricule" name="matricule" type="text" #matricule="ngModel" required>
         </ion-input>
       </ion-item>
       <ion-text color="danger">
@@ -49,7 +49,7 @@
       </ion-text>
 
       <ion-item>
-        <ion-select placeholder="Select Level" [(ngModel)]="signupForm.level" name="level" type="level" #level="ngModel" required>
+        <ion-select placeholder="Select Level" [(ngModel)]="signupForm.level" name="level" type="text" #level="ngModel" required>
           <ion-select-option value="200">200</ion-select-option>
           <ion-select-option value="300">300</ion-select-option>
           <ion-select-option value="400">400</ion-select-option>
@@ -82,7 +82,7 @@
     </ion-list>
 
     <div class="ion-padding">
-      <ion-button style="height: 50px" (click)="onSignup(signupForm)" type="submit" expand="block">Sign up <ion-spinner *ngIf = "isLoading" style="margin-left: 25px"></ion-spinner></ion-button>
+      <ion-button style="height: 50px" (click)="onSignup(signup)" type="submit" expand="block">Sign up <ion-spinner *ngIf = "isLoading" style="margin-left: 25px"></ion-spinner></ion-button>
     </div>
   </form>
 

@@ -17,7 +17,7 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./login.scss'],
 })
 export class LoginPage {
-  login: UserOptions = { matricule: '', password: '' };
+  login: any = { matricule: '', password: '' };
   submitted = false;
   isLoading = false;
 
@@ -41,7 +41,9 @@ export class LoginPage {
   onLogin(form: NgForm) {
     this.isLoading = true;
     this.submitted = true;
+    console.log(form.valid);
     if (form.valid) {
+      
       this.userService.login(form.value).subscribe(
         {
           next: (response: any) => {
@@ -50,8 +52,6 @@ export class LoginPage {
             this.isLoading = false;
             localStorage.setItem('token', response.accessToken);
             localStorage.setItem('user', JSON.stringify(response));
-            // Storage.set({key: 'token', value: response.accessToken});
-            // Storage.set({key: 'user', value: JSON.stringify(response)});
             console.log(response);
             this.router.navigateByUrl('/app/tabs/schedule');
           },
@@ -65,6 +65,8 @@ export class LoginPage {
           }
         }
       )
+    } else {
+      this.isLoading = false;
     }
   }
 

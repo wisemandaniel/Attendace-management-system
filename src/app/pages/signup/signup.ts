@@ -142,9 +142,17 @@ import { MacAddress } from "mac-address";
 export class SignupPage implements OnInit{
 
   macAddress = ''
-  signupForm: any;
+  // signupForm: any;
   submitted = false;
   isLoading = false;
+  signupForm: any  = { 
+    username: '', 
+    matricule: '',
+    level: '',
+    password: '',
+    role: 'ROLE_STUDENT',
+    email: ''
+  };
 
   constructor(
     private userService: UserService,
@@ -157,15 +165,6 @@ export class SignupPage implements OnInit{
   ) {}
 
   async ngOnInit() {
-
-    this.signupForm  = { 
-      username: '', 
-      matricule: '',
-      level: 200,
-      password: '',
-      role: 'ROLE_STUDENT',
-      email: ''
-    };
 
     await MacAddress.getMacAddress()
     .then((res) => {
@@ -198,7 +197,11 @@ export class SignupPage implements OnInit{
   }
 
    onSignup(form: NgForm) {
+    
+    console.log(form.valid);
+    
     this.isLoading = true;
+    this.submitted = true;
     // this.macAddress = 'mac-address-here';
     const obj = {
       username: this.signupForm.username,
@@ -209,8 +212,7 @@ export class SignupPage implements OnInit{
       macAddress: this.macAddress,
       password: this.signupForm.password
     }
-    // if (form.valid) {
-      // this.presentLoading();
+    if (form.valid) {
     this.userService.register(obj).subscribe({
       next: (response: any) => {
         this.isLoading = false;
@@ -218,11 +220,12 @@ export class SignupPage implements OnInit{
       },
       error: (error) => {
         this.isLoading = false;
-        this.showAlert(error.message);
+        this.showAlert(error.error.message);
       },
     });
-    // this.router.navigateByUrl('/app/tabs/schedule');
-    // }
+    } else {
+      this.isLoading = false;
+    }
   }
 }
 
